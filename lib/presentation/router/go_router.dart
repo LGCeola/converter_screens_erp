@@ -1,0 +1,111 @@
+import 'package:converter_screens_erp/presentation/auth/view/login_view.dart';
+import 'package:converter_screens_erp/presentation/customer/view/customer_view.dart';
+import 'package:converter_screens_erp/presentation/home/view/home_view.dart';
+import 'package:converter_screens_erp/presentation/order/view/create_order_view.dart';
+import 'package:converter_screens_erp/presentation/order/view/finish_order_view.dart';
+import 'package:converter_screens_erp/presentation/order/view/invoicing_order_view.dart';
+import 'package:converter_screens_erp/presentation/order/view/order_details.dart';
+import 'package:converter_screens_erp/presentation/order/view/order_view.dart';
+import 'package:converter_screens_erp/presentation/password/view/password_recovery_view.dart';
+import 'package:converter_screens_erp/presentation/auth/view/signup_view.dart';
+import 'package:converter_screens_erp/presentation/listProductsPage/view/product_view.dart';
+import 'package:converter_screens_erp/presentation/product/view/product_view.dart';
+import 'package:converter_screens_erp/presentation/product/view/selected_product_view.dart';
+import 'package:converter_screens_erp/presentation/schedule/view/agenda_view.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:go_router/go_router.dart';
+
+final GoRouter router = GoRouter(
+    routes: <RouteBase>[
+      GoRoute(
+          path: '/',
+          builder: (BuildContext context, GoRouterState state) {
+            return LoginView(title: "Login");
+          },
+        routes: [
+          GoRoute(
+              path: 'password',
+              builder: (BuildContext context, GoRouterState state) {
+                return PasswordView(title: "Recuperar Senha");
+              },
+          ),
+          GoRoute(
+            path: 'signup',
+            builder: (BuildContext context, GoRouterState state) {
+              return SignupView(title: "Cadastrar-se");
+            },
+          ),
+        ]
+      ),
+      GoRoute(
+        path: '/home',
+        builder: (BuildContext context, GoRouterState state) {
+          return HomeView(title: "Início");
+        },
+        routes: [
+          GoRoute(
+            path: 'order_details',
+            builder: (BuildContext context, GoRouterState state) {
+              return OrderDetailsView(title: "Detalhes de Pedidos");
+            }
+          )
+        ]
+      ),
+      GoRoute(
+        path: '/product',
+        builder: (BuildContext context, GoRouterState state) {
+          return ProductView(title: "Catálogo de Produtos");
+        },
+        routes: [
+          GoRoute(
+            path: 'selected_product',
+            builder: (BuildContext context, GoRouterState state) {
+              return SelectedProduct(title: "nomeDoProduto");
+            }
+          )
+        ]
+      ),
+      GoRoute(
+        path: '/order',
+        builder: (BuildContext context, GoRouterState state) {
+          return OrderView(title: "Adicionar Clientes");
+        },
+        routes: [
+          GoRoute(
+            path: 'create_order',
+            builder: (BuildContext context, GoRouterState state) {
+              return CreateOrderView(title: "Criar Pedido");
+            },
+            routes: [
+              GoRoute(
+                path: 'invoicing_order',
+                builder: (BuildContext context, GoRouterState state) {
+                  return InvoicingOrderView(title: "Faturamento");
+                },
+                routes: [
+                  GoRoute(
+                    path: 'finish_order',
+                    builder: (BuildContext context, GoRouterState state) {
+                      return FinishOrderView(title: "");
+                    },
+                  ),
+                ]
+              ),
+            ]
+          ),
+        ]
+      ),
+      GoRoute(
+        path: '/customer',
+        builder: (BuildContext context, GoRouterState state) {
+          return CustomerView(title: "Clientes");
+        },
+      ),
+      GoRoute(
+        path: '/agenda',
+        builder: (BuildContext context, GoRouterState state) {
+          return AgendaView(title: "Agenda");
+        },
+      ),
+    ]
+);
