@@ -1,17 +1,7 @@
-import 'dart:math';
 import 'package:converter_screens_erp/presentation/product/models/product.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-final List<String> localImages = [
-  'C:/Users/New/Documents/AndroidStudioProjects/converter_screens_erp/lib/presentation/assets/images/not_found.png',
-  'C:/Users/New/Documents/AndroidStudioProjects/converter_screens_erp/lib/presentation/assets/images/yellow_dress.png',
-  'C:/Users/New/Documents/AndroidStudioProjects/converter_screens_erp/lib/presentation/assets/images/black_shirt.jpg',
-  'C:/Users/New/Documents/AndroidStudioProjects/converter_screens_erp/lib/presentation/assets/images/brown_jacket.jpg',
-  'C:/Users/New/Documents/AndroidStudioProjects/converter_screens_erp/lib/presentation/assets/images/jeans_pants.jpg'
-];
-
-final random = Random();
 
 class ListViewColumnBig extends ConsumerWidget {
   final List<Product> products;
@@ -30,49 +20,73 @@ class ListViewColumnBig extends ConsumerWidget {
         itemBuilder: (context, index) {
           final product = products[index];
           final image = product.images.firstOrNull;
-          final randomImage = localImages[random.nextInt(localImages.length)];
 
-          return InkWell(
-            onTap: () {
-            //  context.push('/product/selected_product');
-            },
-            child: Container(
-              height: 140,
-              margin: EdgeInsets.symmetric(vertical: 4),
-              padding: EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey.shade300),
-                borderRadius: BorderRadius.circular(8),
-              ),
+          return Container(
+            margin: EdgeInsets.symmetric(vertical: 4),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade300,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.grey.shade400, width: 2)
+            ),
+            child: InkWell(
+              onTap: () {
+                context.push(
+                  '/product/product_details',
+                   extra: product
+                );
+              },
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Image.asset(
-                    randomImage,
-                    /*
-                    image == null
-                      ? 'C:/Users/New/Documents/AndroidStudioProjects/converter_screens_erp/lib/presentation/assets/images/not_found.png'
-                      : image.url
-                    ,
-                    */
-                    fit: BoxFit.contain,
-                    height: 100,
-                    width: 100,
+                  Padding(padding: EdgeInsets.only(left: 8)),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(10),
+                        topLeft: Radius.circular(10)
+                      ),
+                      color: Colors.grey.shade300,
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10)
+                      ),
+                      child: Image.asset(
+                        image?.url ?? 'C:/Users/New/Documents/AndroidStudioProjects/converter_screens_erp/lib/presentation/assets/images/not_found.png',
+                        height: 100,
+                        width: 100,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
                   ),
-                  SizedBox(width: 12),
+                  Padding(padding: EdgeInsets.only(left: 8)),
                   Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
+                    child: Container(
+                      height: 120,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10),
+                          bottomRight: Radius.circular(10)
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
                               "${product.price}"
-                          ),
-                          Text(
-                            product.name,
-                            style: TextStyle(color: Colors.grey.shade700),
-                          )
-                        ],
-                      )
+                            ),
+                            Text(
+                              product.name,
+                              style: TextStyle(color: Colors.grey.shade700),
+                            )
+                          ],
+                        )
+                      ),
+                    ),
                   )
                 ],
               ),

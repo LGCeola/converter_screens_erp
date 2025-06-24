@@ -1,29 +1,34 @@
+import 'package:converter_screens_erp/presentation/product/models/product.dart';
 import 'package:converter_screens_erp/presentation/product/viewmodel/product_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class SelectedProduct extends ConsumerWidget {
+class ProductDetails extends ConsumerWidget {
   final String title;
+  final Product products;
 
-  const SelectedProduct ({
+  const ProductDetails ({
     super.key,
-    required this.title
+    required this.title,
+    required this.products
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModelProvider = ref.watch(productViewModelProvider);
     final PageController controller = PageController();
+    final product = products;
+    final image = product.images.firstOrNull;
 
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
         leading: IconButton(
-          onPressed: () {
-            context.pop();
-          },
-          icon: Icon(Icons.arrow_back_ios_new, size: 22)
+            onPressed: () {
+              context.pop();
+            },
+            icon: Icon(Icons.arrow_back_ios_new, size: 22)
         ),
         backgroundColor: Color(0xFF0081F5),
         foregroundColor: Colors.white,
@@ -33,13 +38,13 @@ class SelectedProduct extends ConsumerWidget {
           Expanded(
             child: PageView.builder(
               controller: controller,
-              itemCount: 0,// viewModelProvider.imagePaths.length,
+              itemCount: 4,
               onPageChanged: (index) {
                 viewModelProvider.selectedImage(index);
               },
               itemBuilder: (context, index) {
                 return Image.asset(
-                  "",// viewModelProvider.imagePaths[index],
+                  image?.url ?? 'C:/Users/New/Documents/AndroidStudioProjects/converter_screens_erp/lib/presentation/assets/images/not_found.png',
                   fit: BoxFit.contain,
                 );
               },
@@ -51,18 +56,20 @@ class SelectedProduct extends ConsumerWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(
-                  // viewModelProvider.imagePaths.length,
-                  0,
-                    (index) => AnimatedContainer(
-                      duration: Duration(milliseconds: 300),
-                      margin: EdgeInsets.symmetric(horizontal: 4),
-                      width: viewModelProvider.currentPage == index ? 12 : 8,
-                      height: viewModelProvider.currentPage == index ? 12 : 8,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: viewModelProvider.currentPage == index
-                          ? Colors.blue
-                          : Colors.grey,
+                  4,
+                  (index) =>
+                  AnimatedContainer(
+                    duration: Duration(milliseconds: 300),
+                    margin: EdgeInsets.symmetric(horizontal: 4),
+                    width: viewModelProvider.currentPage == index
+                      ? 12 : 8,
+                    height: viewModelProvider.currentPage == index
+                      ? 12 : 8,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: viewModelProvider.currentPage == index
+                        ? Colors.blue
+                        : Colors.grey,
                     ),
                   ),
                 ),
@@ -71,35 +78,40 @@ class SelectedProduct extends ConsumerWidget {
           ),
           Expanded(
             child: Padding(
-              padding: EdgeInsets.only(top: 14, left: 12, right: 12, bottom: 68),
+              padding: EdgeInsets.only(
+                top: 14, left: 12, right: 12, bottom: 68
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "NomeDoProduto",
+                        product.name,
                         style: TextStyle(
                           fontSize: 18,
-                          fontWeight: FontWeight.bold
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.archive_sharp,
-                            color: Colors.black,
-                            size: 22,
-                          ),
-                          SizedBox(width: 2),
-                          Text(
-                            "Total Vendidos: 4.9mil",
-                            style: TextStyle(
-                              fontSize: 18,
+                      Padding(
+                        padding: EdgeInsets.only(top: 12),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.archive_sharp,
+                              color: Colors.black,
+                              size: 22,
                             ),
-                          ),
-                        ],
+                            SizedBox(width: 2),
+                            Text(
+                              "Total Vendidos: 4.9mil",
+                              style: TextStyle(
+                                fontSize: 18,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -156,7 +168,9 @@ class SelectedProduct extends ConsumerWidget {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xFF0081F5),
                           foregroundColor: Colors.white,
-                          padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 32, vertical: 16
+                          ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
@@ -177,4 +191,5 @@ class SelectedProduct extends ConsumerWidget {
       ),
     );
   }
+
 }

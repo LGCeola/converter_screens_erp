@@ -16,7 +16,7 @@ enum LayoutProduct {
 }
 
 class ProductViewModel extends ChangeNotifier {
-  final List<Product> products = createProductFaker(100);
+  final List<Product> products = createProductFaker(5);
 
   LayoutProduct layoutProduct = LayoutProduct.gridColumn2;
 
@@ -57,10 +57,8 @@ Unit createUnit() {
   return random.element(units);
 }
 
-
 List<ImageModel> createImages() {
   final images = [
-    //'C:/Users/New/Documents/AndroidStudioProjects/converter_screens_erp/lib/presentation/assets/images/not_found.png',
     'C:/Users/New/Documents/AndroidStudioProjects/converter_screens_erp/lib/presentation/assets/images/yellow_dress.png',
     'C:/Users/New/Documents/AndroidStudioProjects/converter_screens_erp/lib/presentation/assets/images/black_shirt.jpg',
     'C:/Users/New/Documents/AndroidStudioProjects/converter_screens_erp/lib/presentation/assets/images/brown_jacket.jpg',
@@ -77,7 +75,7 @@ List<ImageModel> createImages() {
 
 List<Category> createCategories() {
   final names = [
-    'Calçado','Ténis', 'Ovo'
+    'Calçado','Tênis', 'Ovo'
   ];
 
   return List.generate(random.integer(names.length + 1, min: 0), (index) {
@@ -94,8 +92,8 @@ List<Packing> createPackings() {
       id: index + 1,
       unit: createUnit(),
       barcode: faker.randomGenerator.boolean()
-          ? null
-          : createBarcode()
+        ? null
+        : createBarcode()
       ,
       quantity: faker.randomGenerator.boolean()
         ? random.decimal(min: 1)
@@ -117,8 +115,8 @@ List<Product> createProductFaker(int quantity) {
         : createBarcode()
       ,
       description: faker.randomGenerator.boolean()
-          ? null
-          : "${faker.food.cuisine()} ${faker.food.dish()}"
+        ? null
+        : "${faker.food.cuisine()} ${faker.food.dish()}"
         ,
       price: faker.randomGenerator.boolean()
         ? random.decimal(min: 1)

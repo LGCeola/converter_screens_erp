@@ -8,9 +8,10 @@ import 'package:converter_screens_erp/presentation/order/view/order_details.dart
 import 'package:converter_screens_erp/presentation/order/view/order_view.dart';
 import 'package:converter_screens_erp/presentation/password/view/password_recovery_view.dart';
 import 'package:converter_screens_erp/presentation/auth/view/signup_view.dart';
-import 'package:converter_screens_erp/presentation/listProductsPage/view/product_view.dart';
+import 'package:converter_screens_erp/presentation/product/models/product.dart';
 import 'package:converter_screens_erp/presentation/product/view/product_view.dart';
-import 'package:converter_screens_erp/presentation/product/view/selected_product_view.dart';
+import 'package:converter_screens_erp/presentation/product/view/product_details.dart';
+import 'package:converter_screens_erp/presentation/product/viewmodel/product_providers.dart';
 import 'package:converter_screens_erp/presentation/schedule/view/agenda_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
@@ -58,9 +59,10 @@ final GoRouter router = GoRouter(
         },
         routes: [
           GoRoute(
-            path: 'selected_product',
+            path: 'product_details',
             builder: (BuildContext context, GoRouterState state) {
-              return SelectedProduct(title: "nomeDoProduto");
+              final product = state.extra as Product;
+              return ProductDetails(title: "", products: product);
             }
           )
         ]

@@ -99,13 +99,13 @@ class ProductView extends ConsumerWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20)
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20)
           ),
           boxShadow: [
             BoxShadow(
-                color: Colors.black12,
-                blurRadius: 10
+              color: Colors.black12,
+              blurRadius: 10
             ),
           ],
         ),
