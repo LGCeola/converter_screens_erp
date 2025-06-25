@@ -37,6 +37,21 @@ class CustomerView extends ConsumerWidget {
           ),
         ],
       ),
+      body: SizedBox(
+        child: Column(
+          children: [
+
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Color(0xFF0081F5),
+        foregroundColor: Colors.white,
+        onPressed: () {
+
+        },
+        child: Icon(Icons.add),
+      ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,

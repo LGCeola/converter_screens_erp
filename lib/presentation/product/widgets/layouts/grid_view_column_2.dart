@@ -41,28 +41,38 @@ class GridViewColumn2 extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Expanded(
-                    child: Center(
-                      child: Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(10),
-                            topLeft: Radius.circular(10)
+                  Padding(
+                    padding: EdgeInsets.all(0),
+                    child: Expanded(
+                      child: Center(
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(10),
+                              topLeft: Radius.circular(10)
+                            ),
+                            color: Colors.grey.shade300,
                           ),
-                          color: Colors.grey.shade300,
-                        ),
-                        child: Image.asset(
-                          image?.url ?? 'C:/Users/New/Documents/AndroidStudioProjects/converter_screens_erp/lib/presentation/assets/images/not_found.png',
-                          width: 180,
-                          height: 180,
-                          fit: BoxFit.contain,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10)
+                            ),
+                            child: Image.asset(
+                              image?.url ?? 'C:/Users/New/Documents/AndroidStudioProjects/converter_screens_erp/lib/presentation/assets/images/not_found.png',
+                              width: double.infinity,
+                              height: 200,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                         ),
                       ),
                     ),
                   ),
                   Container(
                     width: double.infinity,
+                    height: 56,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
@@ -71,9 +81,10 @@ class GridViewColumn2 extends ConsumerWidget {
                       ),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.only(top: 2, left: 8, bottom: 8),
+                      padding: EdgeInsets.only(left: 6),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             "${product.price}"

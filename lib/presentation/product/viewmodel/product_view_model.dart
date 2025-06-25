@@ -16,7 +16,7 @@ enum LayoutProduct {
 }
 
 class ProductViewModel extends ChangeNotifier {
-  final List<Product> products = createProductFaker(5);
+  final List<Product> products = createProductFaker(12);
 
   LayoutProduct layoutProduct = LayoutProduct.gridColumn2;
 
@@ -59,10 +59,8 @@ Unit createUnit() {
 
 List<ImageModel> createImages() {
   final images = [
-    'C:/Users/New/Documents/AndroidStudioProjects/converter_screens_erp/lib/presentation/assets/images/yellow_dress.png',
+    'C:/Users/New/Documents/AndroidStudioProjects/converter_screens_erp/lib/presentation/assets/images/grey_sneakers.jpg',
     'C:/Users/New/Documents/AndroidStudioProjects/converter_screens_erp/lib/presentation/assets/images/black_shirt.jpg',
-    'C:/Users/New/Documents/AndroidStudioProjects/converter_screens_erp/lib/presentation/assets/images/brown_jacket.jpg',
-    'C:/Users/New/Documents/AndroidStudioProjects/converter_screens_erp/lib/presentation/assets/images/jeans_pants.jpg'
   ];
 
   return List.generate(random.integer(images.length + 1, min: 0), (index) {
@@ -117,10 +115,12 @@ List<Product> createProductFaker(int quantity) {
       description: faker.randomGenerator.boolean()
         ? null
         : "${faker.food.cuisine()} ${faker.food.dish()}"
-        ,
-      price: faker.randomGenerator.boolean()
-        ? random.decimal(min: 1)
-        : random.decimal(min: 1, scale: 3),
+      ,
+      price: double.parse(
+        faker.randomGenerator.boolean()
+          ? faker.randomGenerator.decimal(min: 60, scale: 3).toStringAsFixed(2)
+          : faker.randomGenerator.decimal(min: 6, scale: 3).toStringAsFixed(2)
+      ),
       unit: createUnit(),
       images: createImages(),
       categories: createCategories(),

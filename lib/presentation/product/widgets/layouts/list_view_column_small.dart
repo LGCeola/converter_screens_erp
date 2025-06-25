@@ -38,7 +38,6 @@ class ListViewColumnSmall extends ConsumerWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Padding(padding: EdgeInsets.only(left: 8)),
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
@@ -48,18 +47,18 @@ class ListViewColumnSmall extends ConsumerWidget {
                       color: Colors.grey.shade300,
                     ),
                     child: ClipRRect(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10)
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        bottomLeft: Radius.circular(10)
                       ),
                       child: Image.asset(
                         image?.url ?? 'C:/Users/New/Documents/AndroidStudioProjects/converter_screens_erp/lib/presentation/assets/images/not_found.png',
-                        height: 60,
-                        width: 60,
-                        fit: BoxFit.contain,
+                        width: 80,
+                        height: 80,
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
-                  Padding(padding: EdgeInsets.only(left: 8)),
                   Expanded(
                     child: Container(
                       height: 80,

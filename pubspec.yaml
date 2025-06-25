@@ -38,6 +38,7 @@ dependencies:
   flutter_hooks: ^0.21.2
   go_router: ^15.1.2
   faker: ^2.2.0
+  readmore: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -65,9 +66,7 @@ flutter:
   assets:
     - C:/Users/New/Documents/AndroidStudioProjects/converter_screens_erp/lib/presentation/assets/images/not_found.png
     - C:/Users/New/Documents/AndroidStudioProjects/converter_screens_erp/lib/presentation/assets/images/black_shirt.jpg
-    - C:/Users/New/Documents/AndroidStudioProjects/converter_screens_erp/lib/presentation/assets/images/yellow_dress.png
-    - C:/Users/New/Documents/AndroidStudioProjects/converter_screens_erp/lib/presentation/assets/images/brown_jacket.jpg
-    - C:/Users/New/Documents/AndroidStudioProjects/converter_screens_erp/lib/presentation/assets/images/jeans_pants.jpg
+    - C:/Users/New/Documents/AndroidStudioProjects/converter_screens_erp/lib/presentation/assets/images/grey_sneakers.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
