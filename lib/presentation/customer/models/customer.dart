@@ -1,34 +1,44 @@
+import 'package:converter_screens_erp/presentation/customer/models/address.dart';
+import 'package:converter_screens_erp/presentation/customer/models/document.dart';
+import 'package:converter_screens_erp/presentation/customer/models/email.dart';
+import 'package:converter_screens_erp/presentation/customer/models/phone.dart';
+
+enum TypeCustomer {
+  person,
+  company
+}
+
+
 class Customer {
-  final int id;
-  final String name;
-  final String email;
-  final String phone;
-  final String cpf;
+  final int customerId;
+  final String customerName;
+  final Email email;
+  final List<Phone> phones;
+  final Address address;
+  final Document document;
+  final bool isActive;
+
+
+  TypeCustomer get type => document is CPF
+      ? TypeCustomer.person
+      : TypeCustomer.company;
 
   Customer({
-    required this.id,
-    required this.name,
+    required this.customerId,
+    required this.customerName,
     required this.email,
-    required this.phone,
-    required this.cpf
+    required this.phones,
+    required this.address,
+    required this.document,
+    required this.isActive
   }) {
 
-    if (id <= 0) {
+    if (customerId <= 0) {
       throw ArgumentError('Customer: "id" cannot be negative.');
     }
-    if (name.trim().isEmpty) {
+    if (customerName.trim().isEmpty) {
       throw ArgumentError('Customer: "name" is required and cannot be empty.');
     }
-    if (email.trim().isEmpty) {
-      throw ArgumentError('Customer: "email" is required and cannot be empty.');
-    }
-    if (phone.trim().isEmpty) {
-      throw ArgumentError('Customer: "phone" is required and cannot be empty.');
-    }
-    if (cpf.trim().isEmpty) {
-      throw ArgumentError('Customer: "cpf" is required and cannot be empty.');
-    }
-
-
   }
+
 }

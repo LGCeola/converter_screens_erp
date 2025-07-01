@@ -8,13 +8,13 @@ class HomeView extends ConsumerWidget {
 
   const HomeView ({
     super.key,
-    required this.title
+    required this.title,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentIndex = ref.watch(homeIndexProvider);
-    final viewModelProvider = ref.watch(homeViewModelProvider);
+    // final viewModelProvider = ref.watch(homeViewModelProvider);
 
     return Scaffold(
       appBar: AppBar(

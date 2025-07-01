@@ -1,5 +1,8 @@
 import 'package:converter_screens_erp/presentation/auth/view/login_view.dart';
+import 'package:converter_screens_erp/presentation/customer/models/customer.dart';
+import 'package:converter_screens_erp/presentation/customer/view/customer_details.dart';
 import 'package:converter_screens_erp/presentation/customer/view/customer_view.dart';
+import 'package:converter_screens_erp/presentation/customer/viewmodel/customer_view_model.dart';
 import 'package:converter_screens_erp/presentation/home/view/home_view.dart';
 import 'package:converter_screens_erp/presentation/order/view/create_order_view.dart';
 import 'package:converter_screens_erp/presentation/order/view/finish_order_view.dart';
@@ -11,7 +14,6 @@ import 'package:converter_screens_erp/presentation/auth/view/signup_view.dart';
 import 'package:converter_screens_erp/presentation/product/models/product.dart';
 import 'package:converter_screens_erp/presentation/product/view/product_view.dart';
 import 'package:converter_screens_erp/presentation/product/view/product_details.dart';
-import 'package:converter_screens_erp/presentation/product/viewmodel/product_providers.dart';
 import 'package:converter_screens_erp/presentation/schedule/view/agenda_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
@@ -100,8 +102,19 @@ final GoRouter router = GoRouter(
       GoRoute(
         path: '/customer',
         builder: (BuildContext context, GoRouterState state) {
-          return CustomerView(title: "Clientes");
+          final customerData = CustomerViewModel();
+          final customers = customerData.customers;
+          return CustomerView(title: "Clientes", customers: customers);
         },
+        routes: [
+          GoRoute(
+            path: 'customer_details',
+            builder: (BuildContext context, GoRouterState state) {
+              final customer = state.extra as Customer;
+              return CustomerDetails(title: "", customers: customer);
+            }
+          )
+        ]
       ),
       GoRoute(
         path: '/agenda',

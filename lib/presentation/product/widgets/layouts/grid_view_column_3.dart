@@ -63,7 +63,7 @@ class GridViewColumn3 extends ConsumerWidget {
                             child: Image.asset(
                               image?.url ?? 'C:/Users/New/Documents/AndroidStudioProjects/converter_screens_erp/lib/presentation/assets/images/not_found.png',
                               width: double.infinity,
-                              height: 138,
+                              height: 128,
                               fit: BoxFit.cover,
                             ),
                           ),

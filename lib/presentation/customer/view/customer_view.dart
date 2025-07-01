@@ -1,3 +1,4 @@
+import 'package:converter_screens_erp/presentation/customer/models/customer.dart';
 import 'package:converter_screens_erp/presentation/customer/viewmodel/customer_providers.dart';
 import 'package:converter_screens_erp/presentation/home/viewmodel/home_providers.dart';
 import 'package:flutter/material.dart';
@@ -6,16 +7,18 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class CustomerView extends ConsumerWidget {
   final String title;
+  final List<Customer> customers;
 
   const CustomerView ({
     super.key,
-    required this.title
+    required this.title,
+    required this.customers
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentIndex = ref.watch(customerIndexProvider);
-    final viewModelProvider = ref.watch(customerViewModelProvider);
+    // final viewModelProvider = ref.watch(customerViewModelProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -37,12 +40,98 @@ class CustomerView extends ConsumerWidget {
           ),
         ],
       ),
-      body: SizedBox(
-        child: Column(
-          children: [
+      body: Expanded(
+        child: ListView.builder(
+          padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+          itemCount: customers.length,
+          itemBuilder: (context, index) {
+            final customer = customers[index];
 
-          ],
-        ),
+            return Container(
+              margin: EdgeInsets.symmetric(vertical: 4),
+              decoration: BoxDecoration(
+                color: Colors.grey.shade300,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.grey.shade400, width: 2)
+              ),
+              child: InkWell(
+                onTap: () {
+                  context.push('/customer/customer_details', extra: customer);
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 60,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10),
+                          topLeft: Radius.circular(10)
+                        ),
+                        color: Colors.grey.shade300,
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          bottomLeft: Radius.circular(10)
+                        ),
+                        child: Icon(
+                          customer.type == TypeCustomer.person
+                            ? Icons.person
+                            : Icons.business
+                            ,
+                          size: 36
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        height: 60,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(10),
+                            bottomRight: Radius.circular(10)
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      customer.customerName
+                                    ),
+                                    Text(
+                                      customer.document.valueFormated,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  customer.isActive
+                                    ? "Ativo"
+                                    : "Desativado"
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      )
+                    )
+                  ],
+                ),
+              ),
+            );
+          }
+        )
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xFF0081F5),
@@ -50,7 +139,7 @@ class CustomerView extends ConsumerWidget {
         onPressed: () {
 
         },
-        child: Icon(Icons.add),
+        child: Icon(Icons.person_add),
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(

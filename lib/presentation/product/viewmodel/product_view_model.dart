@@ -73,7 +73,7 @@ List<ImageModel> createImages() {
 
 List<Category> createCategories() {
   final names = [
-    'Calçado','Tênis', 'Ovo'
+    'Calçado','Tênis', 'Corrida'
   ];
 
   return List.generate(random.integer(names.length + 1, min: 0), (index) {
