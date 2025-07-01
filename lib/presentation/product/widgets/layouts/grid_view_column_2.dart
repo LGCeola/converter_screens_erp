@@ -26,9 +26,8 @@ class GridViewColumn2 extends ConsumerWidget {
 
           return Container(
             decoration: BoxDecoration(
-              // color: Colors.grey.shade300,
               borderRadius: BorderRadius.all(Radius.circular(10)),
-              border: Border.all(color: Colors.grey.shade400, width: 2)
+              border: Border.all(color: Colors.grey.shade200, width: 2)
             ),
             child: InkWell(
               onTap: () {
@@ -62,7 +61,7 @@ class GridViewColumn2 extends ConsumerWidget {
                             child: Image.asset(
                               image?.url ?? 'C:/Users/New/Documents/AndroidStudioProjects/converter_screens_erp/lib/presentation/assets/images/not_found.png',
                               width: double.infinity,
-                              height: 187,
+                              height: 200,
                               fit: BoxFit.cover,
                             ),
                           ),

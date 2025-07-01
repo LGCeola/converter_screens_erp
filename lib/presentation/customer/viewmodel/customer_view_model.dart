@@ -8,8 +8,15 @@ import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import '../models/address.dart' as model;
 
+enum CustomerCard {
+  customerListCard
+}
+
 class CustomerViewModel extends ChangeNotifier {
   final List<Customer> customers = createCustomerFaker(2000);
+
+  CustomerCard customerCard = CustomerCard.customerListCard;
+
 }
 
 String gerarStringAleatoria(int comprimento) {

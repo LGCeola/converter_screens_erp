@@ -1,5 +1,6 @@
 import 'package:converter_screens_erp/presentation/customer/models/customer.dart';
 import 'package:converter_screens_erp/presentation/customer/viewmodel/customer_providers.dart';
+import 'package:converter_screens_erp/presentation/customer/widgets/cards/customer_card.dart';
 import 'package:converter_screens_erp/presentation/home/viewmodel/home_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -18,7 +19,7 @@ class CustomerView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentIndex = ref.watch(customerIndexProvider);
-    // final viewModelProvider = ref.watch(customerViewModelProvider);
+    final viewModelProvider = ref.watch(customerViewModelProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -40,106 +41,33 @@ class CustomerView extends ConsumerWidget {
           ),
         ],
       ),
-      body: Expanded(
-        child: ListView.builder(
-          padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-          itemCount: customers.length,
-          itemBuilder: (context, index) {
-            final customer = customers[index];
-
-            return Container(
-              margin: EdgeInsets.symmetric(vertical: 4),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade300,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.grey.shade400, width: 2)
-              ),
-              child: InkWell(
-                onTap: () {
-                  context.push('/customer/customer_details', extra: customer);
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 60,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(10),
-                          topLeft: Radius.circular(10)
-                        ),
-                        color: Colors.grey.shade300,
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          bottomLeft: Radius.circular(10)
-                        ),
-                        child: Icon(
-                          customer.type == TypeCustomer.person
-                            ? Icons.person
-                            : Icons.business
-                            ,
-                          size: 36
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        height: 60,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(10),
-                            bottomRight: Radius.circular(10)
-                          ),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 10),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      customer.customerName
-                                    ),
-                                    Text(
-                                      customer.document.valueFormated,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  customer.isActive
-                                    ? "Ativo"
-                                    : "Desativado"
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      )
-                    )
-                  ],
-                ),
-              ),
-            );
-          }
-        )
+      body: CustomerCard(customers: customers),
+      /*
+      Padding(
+        padding: EdgeInsets.all(2),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 12),
+              child: ElevatedButton(
+                onPressed: () {
+                  
+                }, 
+                child: Icon(Icons.filter_alt)
+              )
+            )
+          ],
+        ),
       ),
+      */
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xFF0081F5),
         foregroundColor: Colors.white,
         onPressed: () {
 
         },
-        child: Icon(Icons.person_add),
+        child: Icon(Icons.group_add),
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(

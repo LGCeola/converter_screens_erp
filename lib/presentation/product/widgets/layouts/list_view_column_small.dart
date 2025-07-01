@@ -24,9 +24,8 @@ class ListViewColumnSmall extends ConsumerWidget {
           return Container(
             margin: EdgeInsets.symmetric(vertical: 4),
             decoration: BoxDecoration(
-              color: Colors.grey.shade300,
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: Colors.grey.shade400, width: 2)
+              border: Border.all(color: Colors.grey.shade200, width: 2)
             ),
             child: InkWell(
               onTap: () {
