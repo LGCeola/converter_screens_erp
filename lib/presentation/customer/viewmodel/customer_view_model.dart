@@ -1,7 +1,11 @@
 import 'dart:math';
+import 'package:converter_screens_erp/presentation/customer/models/cnpj.dart';
+import 'package:converter_screens_erp/presentation/customer/models/company_customer.dart';
+import 'package:converter_screens_erp/presentation/customer/models/cpf.dart';
 import 'package:converter_screens_erp/presentation/customer/models/customer.dart';
 import 'package:converter_screens_erp/presentation/customer/models/document.dart';
 import 'package:converter_screens_erp/presentation/customer/models/email.dart';
+import 'package:converter_screens_erp/presentation/customer/models/person_customer.dart';
 import 'package:converter_screens_erp/presentation/customer/models/phone.dart';
 import 'package:converter_screens_erp/presentation/customer/widgets/units/document_generator.dart';
 import 'package:faker/faker.dart';
@@ -15,8 +19,40 @@ enum CustomerCard {
 class CustomerViewModel extends ChangeNotifier {
   final List<Customer> customers = createCustomerFaker(2000);
 
+  bool isEditing = false;
+
   CustomerCard customerCard = CustomerCard.customerListCard;
 
+  Customer? getCustomerById(int customerId) {
+    final index = customers.indexWhere((element) => element.customerId == customerId);
+
+    if(index != -1) {
+      return customers[index];
+    }
+
+    return null;
+  }
+
+  void addCustomer(Customer customer) {
+    // validações
+    // separar
+  }
+
+  void updateCustomer(Customer newCustomer){
+    final index = customers.indexWhere((element) => element.customerId == newCustomer.customerId);
+
+    if(index != -1) {
+      // Troca na entidade
+
+      isEditing = false;
+      notifyListeners();
+    }
+  }
+
+  void activeIsEditing() {
+    isEditing = true;
+    notifyListeners();
+  }
 }
 
 String gerarStringAleatoria(int comprimento) {
@@ -33,28 +69,39 @@ String gerarPhone() {
   return '($areaCode) $prefix-$suffix';
 }
 
-Document gerarDocument() {
-  final isCpf = faker.randomGenerator.boolean();
-  return isCpf
-      ? CPF(generateCpf(formatted: true))
-      : CNPJ(generateCnpj(formatted: true));
-}
-
 List<Customer> createCustomerFaker(int quantity) {
   final List<Customer> output = List<Customer>.generate(quantity, (index) {
     final faker = Faker();
     final id = index + 1;
 
-    return Customer(
+    if (faker.randomGenerator.boolean()) {
+      return PersonCustomer(
+        customerId: id,
+        customerCode: id.toString().padLeft(6, "0"),
+        fullName: faker.person.name(),
+        cpf:  CPF(generateCpf(formatted: true)),
+        email: Email(value: faker.internet.email()),
+        phones: [Phone(value: gerarPhone())],
+        address: model.Address(
+          city: faker.address.city(),
+          street: faker.address.streetAddress(),
+        ),
+        isActive: faker.randomGenerator.boolean(),
+      );
+    }
+
+    return CompanyCustomer(
       customerId: id,
-      customerName: faker.person.name(),
+      customerCode: id.toString().padLeft(6, "0"),
+      tradeName: faker.company.name(),
+      legalName: faker.company.name(),
+      cnpj: CNPJ(generateCnpj(formatted: true)),
       email: Email(value: faker.internet.email()),
       phones: [Phone(value: gerarPhone())],
       address: model.Address(
         city: faker.address.city(),
         street: faker.address.streetAddress(),
       ),
-      document: gerarDocument(),
       isActive: faker.randomGenerator.boolean()
     );
   });

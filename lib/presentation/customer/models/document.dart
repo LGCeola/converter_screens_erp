@@ -1,3 +1,4 @@
+/*
 abstract class Document {
   final String value;
   final String valueFormated;
@@ -50,3 +51,4 @@ final class CPF implements Document {
     return true;
   }
 }
+*/

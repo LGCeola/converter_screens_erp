@@ -102,16 +102,14 @@ final GoRouter router = GoRouter(
       GoRoute(
         path: '/customer',
         builder: (BuildContext context, GoRouterState state) {
-          final customerData = CustomerViewModel();
-          final customers = customerData.customers;
-          return CustomerView(title: "Clientes", customers: customers);
+          return CustomerView(title: "Clientes");
         },
         routes: [
           GoRoute(
             path: 'customer_details',
             builder: (BuildContext context, GoRouterState state) {
-              final customer = state.extra as Customer;
-              return CustomerDetails(title: "", customers: customer);
+              final customerId = state.extra as int;
+              return CustomerDetails(title: "", customerId: customerId);
             }
           )
         ]
