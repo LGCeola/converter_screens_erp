@@ -1,9 +1,9 @@
 import 'dart:math';
+import 'package:converter_screens_erp/presentation/customer/models/cep.dart';
 import 'package:converter_screens_erp/presentation/customer/models/cnpj.dart';
 import 'package:converter_screens_erp/presentation/customer/models/company_customer.dart';
 import 'package:converter_screens_erp/presentation/customer/models/cpf.dart';
 import 'package:converter_screens_erp/presentation/customer/models/customer.dart';
-import 'package:converter_screens_erp/presentation/customer/models/document.dart';
 import 'package:converter_screens_erp/presentation/customer/models/email.dart';
 import 'package:converter_screens_erp/presentation/customer/models/person_customer.dart';
 import 'package:converter_screens_erp/presentation/customer/models/phone.dart';
@@ -20,6 +20,7 @@ class CustomerViewModel extends ChangeNotifier {
   final List<Customer> customers = createCustomerFaker(2000);
 
   bool isEditing = false;
+  bool isSelected = true;
 
   CustomerCard customerCard = CustomerCard.customerListCard;
 
@@ -31,6 +32,11 @@ class CustomerViewModel extends ChangeNotifier {
     }
 
     return null;
+  }
+
+  void toggleFilter() {
+    isSelected = !isSelected;
+    notifyListeners();
   }
 
   void addCustomer(Customer customer) {
@@ -83,8 +89,10 @@ List<Customer> createCustomerFaker(int quantity) {
         email: Email(value: faker.internet.email()),
         phones: [Phone(value: gerarPhone())],
         address: model.Address(
+          state: faker.address.state(),
           city: faker.address.city(),
           street: faker.address.streetAddress(),
+          cep: CEP(generateCep(formatted: true)),
         ),
         isActive: faker.randomGenerator.boolean(),
       );
@@ -99,8 +107,10 @@ List<Customer> createCustomerFaker(int quantity) {
       email: Email(value: faker.internet.email()),
       phones: [Phone(value: gerarPhone())],
       address: model.Address(
+        state: faker.address.state(),
         city: faker.address.city(),
         street: faker.address.streetAddress(),
+        cep: CEP(generateCep(formatted: true)),
       ),
       isActive: faker.randomGenerator.boolean()
     );

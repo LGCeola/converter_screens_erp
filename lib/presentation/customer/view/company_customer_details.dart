@@ -22,11 +22,28 @@ class CompanyCustomerDetails extends ConsumerWidget {
           },
           icon: Icon(Icons.arrow_back_ios_new, size: 22)
         ),
+        actions: [
+          Padding(
+            padding: EdgeInsets.all(8),
+            child: TextButton(
+              onPressed: () {
+
+              },
+              child: Text(
+                "Salvar",
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.white
+                ),
+              )
+            ),
+          )
+        ],
         backgroundColor: Color(0xFF0081F5),
         foregroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.only(bottom: 80),
+        padding: EdgeInsets.only(bottom: 75),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -37,18 +54,18 @@ class CompanyCustomerDetails extends ConsumerWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(60),
                     border: Border.all(
-                      color: customer.isActive
-                        ? Colors.green
-                        : Colors.redAccent,
+                      color: Colors.grey.shade400,
                       width: 3
                     ),
                   ),
                   child: CircleAvatar(
                     radius: 50,
-                    backgroundColor: Colors.grey.shade300,
+                    backgroundColor: customer.isActive
+                      ? Colors.green
+                      : Colors.red,
                     child: Icon(
                       Icons.apartment,
-                      color: Colors.black,
+                      color: Colors.white,
                       size: 50,
                     ),
                   ),
@@ -140,11 +157,11 @@ class CompanyCustomerDetails extends ConsumerWidget {
                                 ),
                                 ListTile(
                                   visualDensity: VisualDensity(vertical: 0.2),
-                                  title: Text("E-mail: "),
+                                  title: Text("CNPJ: "),
                                   subtitle: Text(
-                                    customer.cnpj.toString(),
+                                    customer.cnpj.formatted,
                                     style: TextStyle(
-                                        fontSize: 15
+                                      fontSize: 15
                                     ),
                                   ),
                                   trailing: TextButton(
@@ -203,9 +220,57 @@ class CompanyCustomerDetails extends ConsumerWidget {
                               children: [
                                 ListTile(
                                   visualDensity: VisualDensity(vertical: 0.2),
+                                  title: Text("Estado: "),
+                                  subtitle: Text(
+                                    customer.address.state,
+                                    style: TextStyle(
+                                      fontSize: 15
+                                    ),
+                                  ),
+                                  trailing: TextButton(
+                                    onPressed: () {
+
+                                    },
+                                    child: Text(
+                                      "Editar",
+                                      style: TextStyle(
+                                        decoration: TextDecoration.underline,
+                                        decorationColor: Color(0xFF0081F5),
+                                        fontSize: 16,
+                                        color: Color(0xFF0081F5)
+                                      ),
+                                    )
+                                  ),
+                                ),
+                                ListTile(
+                                  visualDensity: VisualDensity(vertical: 0.2),
                                   title: Text("Cidade: "),
                                   subtitle: Text(
                                     customer.address.city,
+                                    style: TextStyle(
+                                      fontSize: 15
+                                    ),
+                                  ),
+                                  trailing: TextButton(
+                                    onPressed: () {
+
+                                    },
+                                    child: Text(
+                                      "Editar",
+                                      style: TextStyle(
+                                        decoration: TextDecoration.underline,
+                                        decorationColor: Color(0xFF0081F5),
+                                        fontSize: 16,
+                                        color: Color(0xFF0081F5)
+                                      ),
+                                    )
+                                  ),
+                                ),
+                                ListTile(
+                                  visualDensity: VisualDensity(vertical: 0.2),
+                                  title: Text("CEP: "),
+                                  subtitle: Text(
+                                    customer.address.cep.formatted,
                                     style: TextStyle(
                                       fontSize: 15
                                     ),
@@ -290,6 +355,16 @@ class CompanyCustomerDetails extends ConsumerWidget {
                               children: [
                                 ListTile(
                                   visualDensity: VisualDensity(vertical: 0.2),
+                                  title: Text("Email: "),
+                                  subtitle: Text(
+                                    customer.email.value,
+                                    style: TextStyle(
+                                        fontSize: 15
+                                    ),
+                                  ),
+                                ),
+                                ListTile(
+                                  visualDensity: VisualDensity(vertical: 0.2),
                                   title: Text("Telefone: "),
                                   subtitle: Text(
                                     customer.phones.first.value,
@@ -321,16 +396,6 @@ class CompanyCustomerDetails extends ConsumerWidget {
                                         )
                                       ),
                                     ],
-                                  ),
-                                ),
-                                ListTile(
-                                  visualDensity: VisualDensity(vertical: 0.2),
-                                  title: Text("Email: "),
-                                  subtitle: Text(
-                                    customer.email.value,
-                                    style: TextStyle(
-                                      fontSize: 15
-                                    ),
                                   ),
                                 ),
                               ],

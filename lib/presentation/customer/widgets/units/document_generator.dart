@@ -52,3 +52,12 @@ String generateCnpj({bool formatted = true}) {
 
   return '${numbers.substring(0, 2)}.${numbers.substring(2, 5)}.${numbers.substring(5, 8)}/${numbers.substring(8, 12)}-${numbers.substring(12)}';
 }
+
+String generateCep ({bool formatted = true}) {
+  final fakerGen = faker.randomGenerator;
+  final digits = List.generate(8, (_) => fakerGen.integer(10)).join();
+
+  if (!formatted) return digits;
+
+  return '${digits.substring(0, 5)}-${digits.substring(5, 8)}';
+}

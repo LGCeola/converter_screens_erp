@@ -43,57 +43,123 @@ class CustomerView extends ConsumerWidget {
           ),
         ],
       ),
-      body: Expanded(
-        child: ListView.builder(
-          padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-          itemCount: customers.length,
-          itemBuilder: (context, index) {
-            final customer = customers[index];
-            if (customer is PersonCustomer) return PersonCustomerCard(customer: customer);
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Padding(
+            padding: EdgeInsets.all(2),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 4),
+                  child: Row(
+                    children: [
+                      FilledButton(
+                        onPressed: () {
 
-            if (customer is CompanyCustomer) return CompanyCustomerCard(customer: customer);
-
-            return SizedBox();
-          }
-        )
-      ),
-      ///CompanyCustomerCard(
-      ///  customers: customers,
-      ///  companyCustomer: customers.firstWhere((c) => c is CompanyCustomer) as CompanyCustomer,
-      ///),
-      /*
-      Padding(
-        padding: EdgeInsets.all(2),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Align(
-              alignment: Alignment.topRight,
-              child: Padding(
-                padding: EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 12),
-                child: SizedBox(
-                  width: 90,
-                  height: 45,
-                  child: ElevatedButton(
-                    onPressed: () {
-
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF0081F5),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                        },
+                        style: ElevatedButton.styleFrom(
+                          side: BorderSide(color: Colors.grey.shade400, width: 1),
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              bottomLeft: Radius.circular(10)
+                            ),
+                          )
+                        ),
+                        child: Text(
+                          "Todos",
+                          style: TextStyle(
+                            color: Colors.black
+                          ),
+                        )
                       ),
-                    ),
-                    child: Icon(Icons.filter_alt, color: Colors.white, size: 22)
+                      FilledButton(
+                        onPressed: () {
+
+                        },
+                        style: ElevatedButton.styleFrom(
+                          side: BorderSide(color: Colors.grey.shade400, width: 1),
+                          backgroundColor: Colors.grey.shade200,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(0)
+                          )
+                        ),
+                        child: Text(
+                          "Ativos",
+                          style: TextStyle(
+                            color: Colors.black54
+                          ),
+                        )
+                      ),
+                      FilledButton(
+                        onPressed: () {
+
+                        },
+                        style: ElevatedButton.styleFrom(
+                          side: BorderSide(color: Colors.grey.shade400, width: 1),
+                          backgroundColor: Colors.grey.shade200,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(10),
+                              bottomRight: Radius.circular(10)
+                            )
+                          )
+                        ),
+                        child: Text(
+                          "Inativos",
+                          style: TextStyle(
+                            color: Colors.black54
+                          ),
+                        )
+                      ),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 16, left: 52, bottom: 16),
+                          child: SizedBox(
+                            width: 90,
+                            height: 45,
+                            child: ElevatedButton(
+                              onPressed: () {
+
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(0xFF0081F5),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              child: Icon(Icons.filter_alt, color: Colors.white, size: 22)
+                            ),
+                          ),
+                        )
+                      )
+                    ],
                   ),
                 ),
-              )
+              ],
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+              itemCount: customers.length,
+              itemBuilder: (context, index) {
+                final customer = customers[index];
+                if (customer is PersonCustomer) return PersonCustomerCard(customer: customer);
+
+                if (customer is CompanyCustomer) return CompanyCustomerCard(customer: customer);
+
+                return SizedBox();
+              }
             )
-          ],
-        ),
+          ),
+        ],
       ),
-      */
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xFF0081F5),
         foregroundColor: Colors.white,

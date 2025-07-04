@@ -26,59 +26,35 @@ class CompanyCustomerCard extends ConsumerWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Container(
-              decoration: BoxDecoration(
-                color: customer.isActive
-                  ? Colors.green
-                  : Colors.red
-                ,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(8),
-                  bottomLeft: Radius.circular(8)
-                )
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white
-                        ),
-                        customer.isActive
-                          ? "Ativo"
-                          : "Inativo",
-                      ),
-                    ],
-                  ),
-                  Container(
-                    width: 75,
-                    height: 80,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(8),
-                      ),
-                      color: Colors.grey.shade300,
+            Column(
+              children: [
+                Container(
+                  width: 75,
+                  height: 75,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(8),
+                      bottomLeft: Radius.circular(8),
                     ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        bottomLeft: Radius.circular(10)
-                      ),
-                      child: Icon(
-                        Icons.apartment,
-                        size: 36
-                      ),
+                    color: customer.isActive ? Colors.green : Colors.red,
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      bottomLeft: Radius.circular(10)
+                    ),
+                    child: Icon(
+                      Icons.apartment,
+                      color: Colors.white,
+                      size: 38
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
             Expanded(
               child: Container(
-                height: 100,
+                height: 75,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -103,7 +79,7 @@ class CompanyCustomerCard extends ConsumerWidget {
                               customer.cnpj.formatted
                             ),
                             Text(
-                              customer.address.city
+                              "${customer.address.city}, ${customer.address.state}"
                             ),
                           ],
                         ),
