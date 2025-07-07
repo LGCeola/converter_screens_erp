@@ -1,4 +1,5 @@
 import 'package:converter_screens_erp/presentation/auth/view/login_view.dart';
+import 'package:converter_screens_erp/presentation/create_customer/view/create_customer_view.dart';
 import 'package:converter_screens_erp/presentation/customer/models/customer.dart';
 import 'package:converter_screens_erp/presentation/customer/view/customer_details.dart';
 import 'package:converter_screens_erp/presentation/customer/view/customer_view.dart';
@@ -113,6 +114,12 @@ final GoRouter router = GoRouter(
             }
           )
         ]
+      ),
+      GoRoute(
+        path: '/create_customer',
+        builder: (BuildContext context, GoRouterState state) {
+          return CreateCustomer(title: "Cadastrar Clientes");
+        },
       ),
       GoRoute(
         path: '/agenda',

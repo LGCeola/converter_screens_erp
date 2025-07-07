@@ -12,17 +12,38 @@ import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import '../models/address.dart' as model;
 
-enum CustomerCard {
-  customerListCard
+enum CustomerFilter {
+  all,
+  active,
+  inactive
 }
 
 class CustomerViewModel extends ChangeNotifier {
   final List<Customer> customers = createCustomerFaker(2000);
 
   bool isEditing = false;
-  bool isSelected = true;
 
-  CustomerCard customerCard = CustomerCard.customerListCard;
+  late CustomerFilter currentFilter = CustomerFilter.all;
+
+  List<Customer> get filteredCustomers {
+
+    if (currentFilter == CustomerFilter.active) {
+      return customers.where((c) => c.isActive).toList();
+    }
+
+    if (currentFilter == CustomerFilter.inactive) {
+      return customers.where((c) => !c.isActive).toList();
+
+    }
+
+    return customers;
+
+  }
+
+  void changeFilter(CustomerFilter filter) {
+    currentFilter = filter;
+    notifyListeners();
+  }
 
   Customer? getCustomerById(int customerId) {
     final index = customers.indexWhere((element) => element.customerId == customerId);
@@ -32,11 +53,6 @@ class CustomerViewModel extends ChangeNotifier {
     }
 
     return null;
-  }
-
-  void toggleFilter() {
-    isSelected = !isSelected;
-    notifyListeners();
   }
 
   void addCustomer(Customer customer) {

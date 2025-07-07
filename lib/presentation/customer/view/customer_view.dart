@@ -1,6 +1,7 @@
 import 'package:converter_screens_erp/presentation/customer/models/company_customer.dart';
 import 'package:converter_screens_erp/presentation/customer/models/person_customer.dart';
 import 'package:converter_screens_erp/presentation/customer/viewmodel/customer_providers.dart';
+import 'package:converter_screens_erp/presentation/customer/viewmodel/customer_view_model.dart';
 import 'package:converter_screens_erp/presentation/customer/widgets/cards/company_customer_card.dart';
 import 'package:converter_screens_erp/presentation/customer/widgets/cards/person_customer_card.dart';
 import 'package:converter_screens_erp/presentation/home/viewmodel/home_providers.dart';
@@ -20,8 +21,7 @@ class CustomerView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currentIndex = ref.watch(customerIndexProvider);
     final viewModelProvider = ref.watch(customerViewModelProvider);
-    final customers = viewModelProvider.customers;
-
+    final customers = viewModelProvider.filteredCustomers;
 
     return Scaffold(
       appBar: AppBar(
@@ -58,11 +58,13 @@ class CustomerView extends ConsumerWidget {
                     children: [
                       FilledButton(
                         onPressed: () {
-
+                          viewModelProvider.changeFilter(CustomerFilter.all);
                         },
                         style: ElevatedButton.styleFrom(
-                          side: BorderSide(color: Colors.grey.shade400, width: 1),
-                          backgroundColor: Colors.white,
+                          side: BorderSide(color: Colors.grey.shade300, width: 1),
+                          backgroundColor: viewModelProvider.currentFilter == CustomerFilter.all
+                            ? Colors.white
+                            : Colors.grey.shade300,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(10),
@@ -73,17 +75,21 @@ class CustomerView extends ConsumerWidget {
                         child: Text(
                           "Todos",
                           style: TextStyle(
-                            color: Colors.black
+                            color: viewModelProvider.currentFilter == CustomerFilter.all
+                              ? Colors.black
+                              : Colors.black38
                           ),
                         )
                       ),
                       FilledButton(
                         onPressed: () {
-
+                          viewModelProvider.changeFilter(CustomerFilter.active);
                         },
                         style: ElevatedButton.styleFrom(
-                          side: BorderSide(color: Colors.grey.shade400, width: 1),
-                          backgroundColor: Colors.grey.shade200,
+                          side: BorderSide(color: Colors.grey.shade300, width: 1),
+                          backgroundColor: viewModelProvider.currentFilter == CustomerFilter.active
+                            ? Colors.white
+                            : Colors.grey.shade300,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(0)
                           )
@@ -91,17 +97,21 @@ class CustomerView extends ConsumerWidget {
                         child: Text(
                           "Ativos",
                           style: TextStyle(
-                            color: Colors.black54
+                            color: viewModelProvider.currentFilter == CustomerFilter.active
+                              ? Colors.black
+                              : Colors.black38,
                           ),
                         )
                       ),
                       FilledButton(
                         onPressed: () {
-
+                          viewModelProvider.changeFilter(CustomerFilter.inactive);
                         },
                         style: ElevatedButton.styleFrom(
-                          side: BorderSide(color: Colors.grey.shade400, width: 1),
-                          backgroundColor: Colors.grey.shade200,
+                          side: BorderSide(color: Colors.grey.shade300, width: 1),
+                          backgroundColor: viewModelProvider.currentFilter == CustomerFilter.inactive
+                            ? Colors.white
+                            : Colors.grey.shade300,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.only(
                               topRight: Radius.circular(10),
@@ -112,7 +122,9 @@ class CustomerView extends ConsumerWidget {
                         child: Text(
                           "Inativos",
                           style: TextStyle(
-                            color: Colors.black54
+                            color: viewModelProvider.currentFilter == CustomerFilter.inactive
+                              ? Colors.black
+                              : Colors.black38,
                           ),
                         )
                       ),
@@ -164,7 +176,7 @@ class CustomerView extends ConsumerWidget {
         backgroundColor: Color(0xFF0081F5),
         foregroundColor: Colors.white,
         onPressed: () {
-
+          context.push('/create_customer');
         },
         child: Icon(Icons.group_add),
       ),
