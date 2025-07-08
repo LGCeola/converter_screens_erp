@@ -118,7 +118,7 @@ final GoRouter router = GoRouter(
       GoRoute(
         path: '/create_customer',
         builder: (BuildContext context, GoRouterState state) {
-          return CreateCustomer(title: "Cadastrar Clientes");
+          return CreateCustomer(title: "Cadastrar Cliente");
         },
       ),
       GoRoute(
